@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Controle Financeiro Pessoal</title>
+    <meta name="description" content="Aplicativo gratuito de controle financeiro pessoal manual para organizar receitas, despesas, metas, cartoes, planejamento mensal e educacao financeira no Brasil." />
+    <meta name="keywords" content="controle financeiro pessoal, financas pessoais Brasil, orçamento familiar, despesas, receitas, metas financeiras, cartão de crédito, planejamento mensal" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f766e'/%3E%3Cpath d='M17 40V24h8v16h-8Zm12 0V16h8v24h-8Zm12 0V28h8v12h-8Z' fill='white'/%3E%3Cpath d='M14 44h36' stroke='%23a7f3d0' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main id="authView" class="auth-shell">
+      <section class="auth-panel">
+        <div>
+          <div class="logo-lockup auth-logo">
+            <span class="brand-mark" aria-hidden="true">
+              <svg viewBox="0 0 64 64" role="img">
+                <rect width="64" height="64" rx="14"></rect>
+                <path d="M17 40V24h8v16h-8Zm12 0V16h8v24h-8Zm12 0V28h8v12h-8Z"></path>
+                <path d="M14 44h36"></path>
+              </svg>
+            </span>
+            <span>Controle Financeiro Pessoal</span>
+          </div>
+          <p class="eyebrow">Controle manual e privado</p>
+          <h1>Controle Financeiro Pessoal</h1>
+          <p class="lead">Organize receitas, despesas, cartões, metas e orçamento mensal com dados cadastrados manualmente por você.</p>
+          <p class="creator-credit">Criado por <strong>Dayvisson | Web Designer</strong> · <a href="https://wa.me/5579998758055" target="_blank" rel="noopener">WhatsApp</a></p>
+        </div>
+        <form id="loginForm" class="form-card">
+          <h2>Entrar</h2>
+          <label>
+            Usuário
+            <input id="loginUser" autocomplete="username" required />
+          </label>
+          <label>
+            Senha
+            <input id="loginPass" type="password" autocomplete="current-password" required />
+          </label>
+          <button class="primary" type="submit">Entrar</button>
+          <button class="ghost" id="showRegister" type="button">Criar conta</button>
+          <button class="link-btn" id="showReset" type="button">Esqueci a senha</button>
+          <p id="loginMessage" class="message"></p>
+        </form>
+        <form id="registerForm" class="form-card hidden">
+          <h2>Criar conta</h2>
+          <label>
+            Usuário
+            <input id="registerUser" autocomplete="username" required />
+          </label>
+          <label>
+            Senha
+            <input id="registerPass" type="password" autocomplete="new-password" minlength="4" required />
+          </label>
+          <label>
+            Frase de recuperação
+            <input id="registerRecovery" minlength="4" placeholder="Ex.: minha cidade natal" required />
+          </label>
+          <button class="primary" type="submit">Cadastrar</button>
+          <button class="ghost" id="showLogin" type="button">Voltar ao login</button>
+          <p id="registerMessage" class="message"></p>
+        </form>
+        <form id="resetForm" class="form-card hidden">
+          <h2>Recuperar senha</h2>
+          <label>
+            Usuário
+            <input id="resetUser" autocomplete="username" required />
+          </label>
+          <label>
+            Frase de recuperação
+            <input id="resetRecovery" required />
+          </label>
+          <label>
+            Nova senha
+            <input id="resetPass" type="password" minlength="4" required />
+          </label>
+          <button class="primary" type="submit">Alterar senha</button>
+          <button class="ghost" id="resetBackLogin" type="button">Voltar ao login</button>
+          <p id="resetMessage" class="message"></p>
+        </form>
+      </section>
+    </main>
+
+    <main id="appView" class="app-shell hidden">
+      <header class="app-header">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 64 64" role="img">
+              <rect width="64" height="64" rx="14"></rect>
+              <path d="M17 40V24h8v16h-8Zm12 0V16h8v24h-8Zm12 0V28h8v12h-8Z"></path>
+              <path d="M14 44h36"></path>
+            </svg>
+          </span>
+          <div>
+            <strong>Controle Financeiro Pessoal</strong>
+            <small>Organizacao manual e segura</small>
+          </div>
+        </div>
+        <button data-section="dados" class="profile-shortcut" type="button">
+          <span class="nav-icon">ID</span>
+          <span>
+            <strong>Dados Pessoais</strong>
+            <small>Perfil, foto e informacoes basicas</small>
+          </span>
+        </button>
+        <nav id="nav" aria-label="Menu principal">
+          <div class="nav-group">
+            <p>Perfil do Usuario</p>
+            <button data-section="configuracoes" type="button"><span class="nav-icon">CO</span><span class="nav-label">Configuracoes da Conta</span></button>
+          </div>
+          <div class="nav-group">
+            <p>Controle Financeiro</p>
+            <button data-section="dashboard" class="active" type="button"><span class="nav-icon">DB</span><span class="nav-label">Dashboard</span></button>
+            <button data-section="receitas" type="button"><span class="nav-icon">RE</span><span class="nav-label">Receitas</span></button>
+            <button data-section="despesas" type="button"><span class="nav-icon">DE</span><span class="nav-label">Despesas</span></button>
+            <button data-section="categorias" type="button"><span class="nav-icon">CA</span><span class="nav-label">Categorias</span></button>
+            <button data-section="contas" type="button"><span class="nav-icon">CP</span><span class="nav-label">Contas a Pagar</span></button>
+            <button data-section="cartoes" type="button"><span class="nav-icon">CC</span><span class="nav-label">Cartoes</span></button>
+          </div>
+          <div class="nav-group">
+            <p>Planejamento</p>
+            <button data-section="metas" type="button"><span class="nav-icon">ME</span><span class="nav-label">Metas Financeiras</span></button>
+            <button data-section="planejamento" type="button"><span class="nav-icon">OR</span><span class="nav-label">Orcamento Mensal</span></button>
+          </div>
+          <div class="nav-group">
+            <p>Relatorios</p>
+            <button data-section="relatorios" type="button"><span class="nav-icon">GR</span><span class="nav-label">Graficos</span></button>
+            <button data-section="exportar" type="button"><span class="nav-icon">EX</span><span class="nav-label">Exportacao</span></button>
+            <button data-section="blog" type="button"><span class="nav-icon">BL</span><span class="nav-label">Blog</span></button>
+          </div>
+        </nav>
+        <button id="logoutBtn" class="logout">Sair</button>
+      </header>
+
+      <section class="content">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Bem-vindo, <span id="currentUserName"></span></p>
+            <h2 id="sectionTitle">Dashboard</h2>
+          </div>
+          <div class="period-picker">
+            <label>
+              Mês
+              <input id="monthFilter" type="month" />
+            </label>
+          </div>
+        </header>
+
+        <section id="dashboard" class="section active-section">
+          <div class="notice">Este app não solicita CPF, dados bancários, senhas de banco ou conexão automática com instituições financeiras. Todos os dados são cadastrados manualmente.</div>
+          <div class="quick-actions" aria-label="Atalhos principais">
+            <button data-go-section="receitas" type="button"><strong>Nova receita</strong><span>Registrar entrada</span></button>
+            <button data-go-section="despesas" type="button"><strong>Nova despesa</strong><span>Controlar vencimento</span></button>
+            <button data-go-section="cartoes" type="button"><strong>Cartao</strong><span>Compra parcelada</span></button>
+            <button data-go-section="metas" type="button"><strong>Meta</strong><span>Acompanhar progresso</span></button>
+          </div>
+          <div class="metrics-grid">
+            <article class="metric-card blue"><span>Saldo atual</span><strong id="saldoAtual">R$ 0,00</strong></article>
+            <article class="metric-card green"><span>Receitas do mês</span><strong id="receitasMes">R$ 0,00</strong></article>
+            <article class="metric-card red"><span>Despesas do mês</span><strong id="despesasMes">R$ 0,00</strong></article>
+            <article class="metric-card teal"><span>Resultado do mês</span><strong id="resultadoMes">R$ 0,00</strong></article>
+            <article class="metric-card amber"><span>Total em cartões</span><strong id="cartoesTotal">R$ 0,00</strong></article>
+            <article class="metric-card violet"><span>Metas financeiras</span><strong id="metasProgresso">0%</strong></article>
+          </div>
+          <div class="dashboard-grid">
+            <article class="panel">
+              <h3>Contas a pagar e alertas</h3>
+              <div id="alertsList" class="stack"></div>
+            </article>
+            <article class="panel">
+              <h3>Planejamento do mês</h3>
+              <div id="budgetSummary" class="stack"></div>
+            </article>
+          </div>
+        </section>
+
+        <section id="receitas" class="section">
+          <div class="two-column">
+            <form id="incomeForm" class="panel data-form">
+              <h3>Nova receita</h3>
+              <input type="hidden" id="incomeId" />
+              <label>Descrição <input id="incomeDescription" required /></label>
+              <label>Valor <input id="incomeAmount" type="number" min="0" step="0.01" required /></label>
+              <label>Data <input id="incomeDate" type="date" required /></label>
+              <label>Categoria <select id="incomeCategory"></select></label>
+              <label>Conta/carteira <input id="incomeWallet" placeholder="Carteira, conta corrente..." required /></label>
+              <label>Observação <textarea id="incomeNote"></textarea></label>
+              <button class="primary" type="submit">Salvar receita</button>
+            </form>
+            <article class="panel">
+              <div class="panel-head">
+                <h3>Receitas cadastradas</h3>
+              </div>
+              <div id="incomeList" class="table-wrap"></div>
+            </article>
+          </div>
+        </section>
+
+        <section id="despesas" class="section">
+          <div class="filters panel">
+            <input id="searchInput" placeholder="Buscar por descrição" />
+            <select id="filterCategory"><option value="">Todas as categorias</option></select>
+            <select id="filterStatus">
+              <option value="">Todos os status</option>
+              <option value="pago">Pago</option>
+              <option value="pendente">Pendente</option>
+              <option value="atrasado">Atrasado</option>
+            </select>
+            <select id="filterPayment"><option value="">Todas as formas</option></select>
+          </div>
+          <div class="two-column">
+            <form id="expenseForm" class="panel data-form">
+              <h3>Nova despesa</h3>
+              <input type="hidden" id="expenseId" />
+              <label>Descrição <input id="expenseDescription" required /></label>
+              <label>Valor <input id="expenseAmount" type="number" min="0" step="0.01" required /></label>
+              <label>Vencimento <input id="expenseDueDate" type="date" required /></label>
+              <label>Pagamento <input id="expensePaidDate" type="date" /></label>
+              <label>Categoria <select id="expenseCategory"></select></label>
+              <label>Forma de pagamento <select id="expensePayment"></select></label>
+              <label>Status
+                <select id="expenseStatus">
+                  <option value="pendente">Pendente</option>
+                  <option value="pago">Pago</option>
+                  <option value="atrasado">Atrasado</option>
+                </select>
+              </label>
+              <label>Observação <textarea id="expenseNote"></textarea></label>
+              <label>Foto da despesa <input id="expensePhoto" type="file" accept="image/*" capture="environment" /></label>
+              <button class="primary" type="submit">Salvar despesa</button>
+            </form>
+            <article class="panel">
+              <h3>Despesas cadastradas</h3>
+              <div id="expenseList" class="table-wrap"></div>
+            </article>
+          </div>
+        </section>
+
+        <section id="cartoes" class="section">
+          <div class="two-column">
+            <div class="stack">
+              <form id="cardForm" class="panel data-form">
+                <h3>Novo cartão</h3>
+                <input type="hidden" id="cardId" />
+                <label>Nome do cartão <input id="cardName" required /></label>
+                <label>Limite total <input id="cardLimit" type="number" min="0" step="0.01" required /></label>
+                <label>Fechamento <input id="cardCloseDay" type="number" min="1" max="31" required /></label>
+                <label>Vencimento <input id="cardDueDay" type="number" min="1" max="31" required /></label>
+                <label>Cor <input id="cardColor" type="color" value="#2563eb" /></label>
+                <button class="primary" type="submit">Salvar cartão</button>
+              </form>
+              <form id="purchaseForm" class="panel data-form">
+                <h3>Lançar compra</h3>
+                <label>Cartão <select id="purchaseCard"></select></label>
+                <label>Descrição <input id="purchaseDescription" required /></label>
+                <label>Valor total <input id="purchaseAmount" type="number" min="0" step="0.01" required /></label>
+                <label>Data <input id="purchaseDate" type="date" required /></label>
+                <label>Parcelas <input id="purchaseInstallments" type="number" min="1" max="36" value="1" /></label>
+                <label>Categoria <select id="purchaseCategory"></select></label>
+                <button class="primary" type="submit">Adicionar compra</button>
+              </form>
+            </div>
+            <article class="panel">
+              <h3>Cartões cadastrados</h3>
+              <div id="cardList" class="card-list"></div>
+              <h3>Compras no cartão</h3>
+              <div id="purchaseList" class="table-wrap"></div>
+            </article>
+          </div>
+        </section>
+
+        <section id="planejamento" class="section">
+          <div class="two-column">
+            <form id="budgetForm" class="panel data-form">
+              <h3>Orçamento mensal</h3>
+              <input type="hidden" id="budgetId" />
+              <label>Categoria <select id="budgetCategory"></select></label>
+              <label>Limite mensal <input id="budgetLimit" type="number" min="0" step="0.01" required /></label>
+              <button class="primary" type="submit">Salvar orçamento</button>
+            </form>
+            <article class="panel">
+              <h3>Uso por categoria</h3>
+              <div id="budgetList" class="stack"></div>
+            </article>
+          </div>
+        </section>
+
+        <section id="metas" class="section">
+          <div class="two-column">
+            <form id="goalForm" class="panel data-form">
+              <h3>Nova meta</h3>
+              <input type="hidden" id="goalId" />
+              <label>Nome <input id="goalName" required /></label>
+              <label>Valor objetivo <input id="goalTarget" type="number" min="0" step="0.01" required /></label>
+              <label>Valor atual <input id="goalCurrent" type="number" min="0" step="0.01" required /></label>
+              <label>Prazo <input id="goalDeadline" type="date" required /></label>
+              <button class="primary" type="submit">Salvar meta</button>
+            </form>
+            <article class="panel">
+              <h3>Metas financeiras</h3>
+              <div id="goalList" class="stack"></div>
+            </article>
+          </div>
+        </section>
+
+        <section id="relatorios" class="section">
+          <div class="chart-grid">
+            <article class="panel"><h3>Despesas por categoria</h3><canvas id="chartCategories"></canvas></article>
+            <article class="panel"><h3>Receitas x despesas</h3><canvas id="chartMonthly"></canvas></article>
+            <article class="panel"><h3>Evolução do saldo</h3><canvas id="chartBalance"></canvas></article>
+            <article class="panel"><h3>Gastos no cartão</h3><canvas id="chartCards"></canvas></article>
+            <article class="panel wide"><h3>Planejamento por categoria</h3><canvas id="chartBudgets"></canvas></article>
+          </div>
+        </section>
+
+        <section id="contas" class="section">
+          <div class="dashboard-grid">
+            <article class="panel">
+              <h3>Contas proximas do vencimento</h3>
+              <div id="pendingBillsList" class="stack"></div>
+            </article>
+            <article class="panel">
+              <h3>Contas atrasadas</h3>
+              <div id="overdueBillsList" class="stack"></div>
+            </article>
+          </div>
+        </section>
+
+        <section id="categorias" class="section">
+          <div class="two-column">
+            <form id="categoryForm" class="panel data-form">
+              <h3>Categoria personalizada</h3>
+              <input type="hidden" id="categoryId" />
+              <label>Nome <input id="categoryName" required /></label>
+              <button class="primary" type="submit">Salvar categoria</button>
+            </form>
+            <article class="panel">
+              <h3>Categorias</h3>
+              <div id="categoryList" class="chip-list"></div>
+            </article>
+          </div>
+        </section>
+
+        <section id="dados" class="section">
+          <div class="two-column">
+            <form id="profileForm" class="panel data-form">
+              <h3>Dados pessoais</h3>
+              <label>Foto <input id="profilePhoto" type="file" accept="image/*" /></label>
+              <label>Nome completo <input id="profileName" /></label>
+              <label>Telefone <input id="profilePhone" placeholder="(00) 00000-0000" /></label>
+              <label>Cidade/UF <input id="profileCity" placeholder="Aracaju/SE" /></label>
+              <label>Ocupação <input id="profileJob" placeholder="Profissional, estudante..." /></label>
+              <label>Observação <textarea id="profileNote"></textarea></label>
+              <button class="primary" type="submit">Salvar dados</button>
+            </form>
+            <article class="panel profile-card">
+              <h3>Perfil do usuário</h3>
+              <p class="save-note">Depois de salvar, estes dados ficam gravados neste dispositivo para este usuario e aparecem sempre que voce entrar novamente.</p>
+              <div id="profilePreview"></div>
+            </article>
+          </div>
+        </section>
+
+        <section id="blog" class="section">
+          <div class="blog-head panel">
+            <p class="eyebrow">Educação financeira no Brasil</p>
+            <h3>Blog de finanças pessoais</h3>
+            <p>Conteúdo nacional sobre organização financeira, controle de gastos, metas e planejamento mensal.</p>
+          </div>
+          <div id="blogList" class="blog-grid"></div>
+        </section>
+
+        <section id="exportar" class="section">
+          <article class="panel export-panel">
+            <h3>Exportação manual</h3>
+            <p>Gere arquivos CSV ou copie uma tabela consolidada dos dados cadastrados manualmente.</p>
+            <div class="actions">
+              <button id="exportCsvBtn" class="primary" type="button">Baixar CSV</button>
+              <button id="copyTableBtn" class="ghost" type="button">Copiar tabela</button>
+            </div>
+            <textarea id="exportOutput" readonly></textarea>
+          </article>
+        </section>
+        <section id="configuracoes" class="section">
+          <div class="two-column">
+            <article class="panel">
+              <h3>Preferencias do app</h3>
+              <p class="muted-text">Escolha uma aparencia para o painel. Os dados continuam manuais e salvos somente no navegador deste dispositivo.</p>
+              <div class="theme-options" role="group" aria-label="Tema do app">
+                <button data-theme-option="light" type="button">Claro</button>
+                <button data-theme-option="dark" type="button">Escuro</button>
+              </div>
+            </article>
+            <article class="panel">
+              <h3>Seguranca da conta</h3>
+              <div class="security-list">
+                <p>Sem CPF, sem senha bancaria e sem conexao com bancos.</p>
+                <p>O acesso usa usuario, senha e frase de recuperacao.</p>
+                <p>A exportacao e manual em CSV.</p>
+              </div>
+              <button id="settingsLogoutBtn" class="primary" type="button">Sair da conta</button>
+            </article>
+          </div>
+        </section>
+        <footer class="app-footer">
+          <span>Criado por <strong>Dayvisson | Web Designer</strong></span>
+          <a href="https://wa.me/5579998758055" target="_blank" rel="noopener">Falar no WhatsApp</a>
+        </footer>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
